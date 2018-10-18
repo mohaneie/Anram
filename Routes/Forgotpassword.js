@@ -1,6 +1,6 @@
 'use strict';
 
-const UserSchema = require('../Models/Signup');
+const UserSchema = require('../Models/user');
 
 module.exports = function (app) {
 

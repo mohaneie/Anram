@@ -1,5 +1,5 @@
 'use strict';
-const UserSchema = require('../Models/Signup');
+const UserSchema = require('../Models/user');
 const Passwordserv = require('../helper/password');
 
 

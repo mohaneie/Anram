@@ -1,6 +1,6 @@
 'use strict';
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/attendancebase', {useNewUrlParser: true})
+mongoose.connect('mongodb://localhost/bigcollection', {useNewUrlParser: true})
 .then((data) => {
     console.log('db is connected')
 })
