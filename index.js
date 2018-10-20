@@ -21,6 +21,10 @@ const ForgotRoutes = require('./Routes/Forgotpassword');
 const ResetRoutes = require('./Routes/Resetpassword');
 const ChangepassRoutes = require('./Routes/changepassword');
 const UserRoutes = require('./Routes/users');
+const UsertimeModel = require('./Models/usertimer');
+const timerRoutes = require('./Routes/timers');
+const leaveapprovalRoutes = require('./Routes/userleaveapproval');
+
 
 SignupRoutes(app);
 SigninRoutes(app);
@@ -28,6 +32,9 @@ ForgotRoutes(app);
 ResetRoutes(app);
 ChangepassRoutes(app);
 UserRoutes(app);
+timerRoutes(app);
+leaveapprovalRoutes(app);
+
 
 
 

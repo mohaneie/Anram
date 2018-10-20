@@ -31,19 +31,47 @@ module.exports = function(app) {
 
     //  to retrieve user information
 
-    app.get('/', (req, res) => {
+    app.get('/userinfo', (req, res) => {
      
+        UserSchema.find({})
+        .then((result) => {
+            res.json(result);
+        })
+
+        .catch((error) => {
+            res.status(400).json({message: error.message})
+        })
     })
 
     // to update user information
 
-    app.put('/', (req, res) => {
+    app.put('/update/:id', (req, res) => {
 
+      const id = req.params.id;
+      const data = req.body;
+      UserSchema.findByIdAndUpdate({'_id': id}, data, {new : true})
+      .then((result) => {
+          console.log(result);
+      })
+      .catch((error) => {
+          res.status(400).json({message: error.message})
+      })
     })
-
     // to delete user information 
 
-    app.delete('/', (req, res) => {
+    app.delete('/delete/:id', (req, res) => {
+
+        const id = req.params.id;
+        console.log(id);
+        UserSchema.findByIdAndDelete({'_id': id})
+        .then((result) => {
+            res.json(result);
+            console.log(result)
+        })
+
+        .catch((error) => {
+            res.status(400).json({message: error.message});
+        })
 
     })
 }

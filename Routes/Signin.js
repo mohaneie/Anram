@@ -5,12 +5,12 @@ const Passwordserv = require('../helper/password');
 
 module.exports = function (app) {
 
-    app.post('/get', (req, res) => {
+    app.post('/getinfo', (req, res) => {
 
-        const { EmployeeCode, Password } = req.body;
-        console.log(EmployeeCode, Password);
+        const { Email, Password } = req.body;
+        console.log(Email, Password);
         let document = {};
-        UserSchema.findOne({ EmployeeCode })
+        UserSchema.findOne({ Email })
             .then((data) => {
 
             
