@@ -61,27 +61,31 @@
 ## POST METHOD:
 # SAMPLE INPUT:
 
-```JSON
+```json
 
 {
-	"name": "mohanbabu",
-	"email": "mohaneie88@gmail.com",
-	"leavefromdate": "21-10-2018",
-	"todate": "25-10-2018",
-	"description": "I am not feeling well"
+	
+"employeeId": "12345",
+ "from":"2018-10-20",
+ "to": "2018-10-25",
+"description": " i would like to go my sister marriage",
+ "approvedBy": "mohan"
 	
 }
 
 ```
 #SAMPLE OUTPUT:
-```JSON
+```json
 {
-    "_id": "5bcc130dabb4810968471d12",
-    "employeeId": "5bcbf3ff4b16b61494a52752",
-    "leavefromdate": "21-10-2018",
-    "leaveuptodate": "25-10-2018",
-    "description": "I am not feeling well",
-    "appliedon": "monday",
+    "isApproved": "pending",
+    "_id": "5bcc355ae9fa6a17e8401cba",
+    "employeeId": "12345",
+    "from": "2018-10-20T00:00:00.000Z",
+    "to": "2018-10-25T00:00:00.000Z",
+    "description": " i would like to go my sister marriage",
+    "approvedBy": "mohan",
+    "createdAt": "2018-10-21T08:14:18.366Z",
+    "updatedAt": "2018-10-21T08:14:18.366Z",
     "__v": 0
 }
 ```

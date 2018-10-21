@@ -2,14 +2,11 @@
 const mongoose = require('mongoose');
 const UserSchema = new mongoose.Schema({
  employeeId: {type: String, required: true},
- leavefromdate: {type: String, required: true},
- leaveuptodate: {type: String, required: true},
+ from: {type: Date, required: true},
+ to: {type: Date, required: true},
  description: {type: String, required: true},
- time : { type : Date, default: Date.now },
- appliedon: {type: String},
- isapproved: {type: String,},
- approvedby: String,
- 
-})
+ isApproved: {type: String, default: 'pending'},
+ approvedBy: String,
+}, {timestamps: true});
 
-module.exports = mongoose.model('userleave', UserSchema);
+module.exports = mongoose.model('leave', UserSchema);
