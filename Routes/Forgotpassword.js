@@ -1,13 +1,13 @@
 'use strict';
 
-const UserSchema = require('../Models/user');
+const User = require('../Models/user');
 
 module.exports = function (app) {
 
     app.post('/forgot', (req, res) => {
 
         const { Email } = req.body;
-        UserSchema.findOne({ Email })
+        User.findOne({ Email })
             .then((data) => {
                 if (data) {
                     const x = Math.floor((Math.random() * 10000))

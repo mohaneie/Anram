@@ -1,10 +1,10 @@
 'use strict';
 const mongoose = require('mongoose');
 const Timer = mongoose.Schema({
-    Email: String,
-    StartTime:Date,
-    EndTime: Date,
+    employeeId: String,
+    startTime:Date,
+    endTime: Date,
     Leavestatus: String,
-})
+}, {timestamp: true})
 
 module.exports = mongoose.model('usertime', Timer);

@@ -5,7 +5,7 @@ module.exports = function (app) {
 
     app.post('/start', (req, res) => {
 
-        const { Email, StartTime } = req.body;
+        const { employeeId, startTime } = req.body;
         const Start = new Date();
         const y = Start + (Start.getTimezoneOffset());
         console.log(y);

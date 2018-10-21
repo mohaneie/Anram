@@ -1,5 +1,5 @@
 'use strict';
-const UserSchema = require('../Models/user');
+const User = require('../Models/user');
 const passwordserv = require('../helper/password');
 
 
@@ -7,7 +7,7 @@ module.exports = function (app) {
     app.post('/update', (req, res) => {
         const { Email, Password } = req.body;
         console.log(Email, Password);
-        UserSchema.findOne({ Email })
+        User.findOne({ Email })
             .then((data) => {
                 if (!data) {
                     res.status(419).json({ message: 'Email is not found' })
@@ -19,7 +19,7 @@ module.exports = function (app) {
                 console.log(hash);
                 req.body.Password = hash;
                 console.log(req.body.Password)
-                const some = new UserSchema(req.body);
+                const some = new User(req.body);
                 return some.save()
             })
             .then((result) => {

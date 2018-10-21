@@ -1,5 +1,5 @@
 'use strict';
-const UserSchema = require('../Models/user');
+const User = require('../Models/user');
 const Passwordserv = require('../helper/password');
 
 
@@ -10,7 +10,7 @@ module.exports = function (app) {
         const { Email, Password } = req.body;
         console.log(Email, Password);
         let document = {};
-        UserSchema.findOne({ Email })
+        User.findOne({ Email })
             .then((data) => {
 
             

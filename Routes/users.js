@@ -1,6 +1,6 @@
 'use strict';
 
-const UserSchema = require('../Models/user');
+const User = require('../Models/user');
 const passwordserv = require('../helper/password');
 
 module.exports = function(app) {
@@ -18,7 +18,7 @@ module.exports = function(app) {
            console.log(hash);
            const data = req.body || {};
            data.Password = hash;
-           const user = new UserSchema(data);
+           const user = new User(data);
            return user.save()
        })
        .then((result) => {
@@ -34,7 +34,7 @@ module.exports = function(app) {
 
     app.get('/userinfo', (req, res) => {
      
-        UserSchema.find({})
+        User.find({})
         .then((result) => {
             res.json(result);
         })
@@ -50,7 +50,7 @@ module.exports = function(app) {
 
       const id = req.params.id;
       const data = req.body;
-      UserSchema.findByIdAndUpdate(id, data, {new : true})
+      User.findByIdAndUpdate(id, data, {new : true})
       .then((result) => {
           console.log(result);
       })
@@ -64,7 +64,7 @@ module.exports = function(app) {
 
         const id = req.params.id;
         console.log(id);
-        UserSchema.findByIdAndDelete({'_id': id})
+        User.findByIdAndDelete({'_id': id})
         .then((result) => {
             res.json(result);
             console.log(result)
