@@ -9,9 +9,9 @@ const UserSchema = new mongoose.Schema({
     Address: {type: String, required: true},
     PermananentAddress: {type: String, required: true},
     AdhaarNo: {type: String, required: true},
-    PancardNo: {type: Number, required: true},
-    EmployeeContactNo: {type: Number, required: true},
-    EmergencyContactNo: {type: Number, required: true},
+    PancardNo: {type: String, required: true},
+    EmployeeContactNo: {type: String, required: true},
+    EmergencyContactNo: {type: String, required: true},
 });
 
 module.exports = mongoose.model('User', UserSchema);

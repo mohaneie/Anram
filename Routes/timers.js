@@ -10,7 +10,7 @@ module.exports = function (app) {
         const y = Start + (Start.getTimezoneOffset());
         console.log(y);
         const z = y.split(' ');
-        const result = z.splice(0, 5);
+        const result = z.slice(0, 5);
         console.log(result);
         req.body.StartTime = result;
         const m = req.body;

@@ -38,16 +38,10 @@ module.exports = function (app) {
 
             })
 
-            .then((token1) => {
-                console.log(token1,)
-               if(!token1) {
-                   throw new Error('token is not available');
-               }
-               res.status(200).json(token1)
+            .then((token) => {
+               res.json({token})
             })
-
             .catch((error) => {
-
                 res.json({ message: 'error' })
             })
 

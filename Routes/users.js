@@ -16,8 +16,9 @@ module.exports = function(app) {
 
        .then((hash) => {
            console.log(hash);
-           req.body.Password = hash;
-           const user = new UserSchema(req.body);
+           const data = req.body || {};
+           data.Password = hash;
+           const user = new UserSchema(data);
            return user.save()
        })
        .then((result) => {
@@ -49,7 +50,7 @@ module.exports = function(app) {
 
       const id = req.params.id;
       const data = req.body;
-      UserSchema.findByIdAndUpdate({'_id': id}, data, {new : true})
+      UserSchema.findByIdAndUpdate(id, data, {new : true})
       .then((result) => {
           console.log(result);
       })
@@ -59,7 +60,7 @@ module.exports = function(app) {
     })
     // to delete user information 
 
-    app.delete('/delete/:id', (req, res) => {
+    app.delete('/del/:id', (req, res) => {
 
         const id = req.params.id;
         console.log(id);

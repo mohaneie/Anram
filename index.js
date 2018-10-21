@@ -23,7 +23,9 @@ const ChangepassRoutes = require('./Routes/changepassword');
 const UserRoutes = require('./Routes/users');
 const UsertimeModel = require('./Models/usertimer');
 const timerRoutes = require('./Routes/timers');
-const leaveapprovalRoutes = require('./Routes/userleaveapproval');
+const leaveRoutes = require('./Routes/leave');
+const leaveapprovedRoutes = require('./Routes/userleaveapproved');
+const UserleaveModel = require('./Models/leaves');
 
 
 SignupRoutes(app);
@@ -33,7 +35,8 @@ ResetRoutes(app);
 ChangepassRoutes(app);
 UserRoutes(app);
 timerRoutes(app);
-leaveapprovalRoutes(app);
+leaveRoutes(app);
+leaveapprovedRoutes(app);
 
 
 
