@@ -39,7 +39,7 @@ module.exports = function (app) {
             to: 'mohaneie88@gmail.com',
             subject: 'Hello',
             text: 'Hello buddy',
-            html: `<b>${"Employeecode:"+ " "+employeeId}<br>${"From:"+" "+from}<br>${"To:"+" " +to}<br>${"Description:"+ " " +description} <button>CLICK-TO-APPROVE</b><br><button>CLICK-TO-CANCEL`
+            html: `<b>${"Employeecode:"+ " "+employeeId}<br>${"From:"+" "+from}<br>${"To:"+" " +to}<br>${"Description:"+ " " +description}<br><a href= '#'>click-the-Link</a>`
 
         };
 
