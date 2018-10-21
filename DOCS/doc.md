@@ -90,5 +90,30 @@
 }
 ```
 
+### API/LEAVE/LEAVUPT:
+## PUT METHOD:
+# SAMPLE INPUT:
+```json
+{
+    "isApproved": "Leave is approved",
+}
 
+```
+
+# SAMPLE OUTPUT:
+```JSON
+{
+    "isApproved": "Leave is approved",
+    "_id": "5bcc355ae9fa6a17e8401cba",
+    "employeeId": "12345",
+    "from": "2018-10-20T00:00:00.000Z",
+    "to": "2018-10-25T00:00:00.000Z",
+    "description": " i would like to go my sister marriage",
+    "approvedBy": "mohan",
+    "createdAt": "2018-10-21T08:14:18.366Z",
+    "updatedAt": "2018-10-21T09:29:03.159Z",
+    "__v": 0
+}
+
+```
 

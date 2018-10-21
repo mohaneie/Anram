@@ -20,6 +20,8 @@ module.exports = function (app) {
             res.status(400).json({message: error.message})
         })
 
+    
+
        
     
         // const transporter = nodemailer.createTransport({
@@ -52,5 +54,20 @@ module.exports = function (app) {
 
         // })
 
+    })
+
+    app.put('/leavupt/:id', (req, res) => {
+
+        const id = req.params.id;
+        const data = req.body;
+        User.findByIdAndUpdate(id, data, {new: true})
+        .then((result) => {
+            res.json(result);
+        })
+
+        .catch((error) => {
+            res.status(400).json({message: error.message});
+        })
+        
     })
 }
