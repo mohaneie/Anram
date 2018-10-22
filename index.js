@@ -13,7 +13,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
 
-const SignupModel = require('./Models/user');
 const connects = require('./dbconnection');
 const SignupRoutes = require('./Routes/Signup');
 const SigninRoutes = require('./Routes/Signin');
@@ -21,11 +20,8 @@ const ForgotRoutes = require('./Routes/Forgotpassword');
 const ResetRoutes = require('./Routes/Resetpassword');
 const ChangepassRoutes = require('./Routes/changepassword');
 const UserRoutes = require('./Routes/users');
-const UsertimeModel = require('./Models/usertimer');
 const timerRoutes = require('./Routes/timers');
 const leaveRoutes = require('./Routes/leave');
-const leaveapprovedRoutes = require('./Routes/userleaveapproved');
-const UserleaveModel = require('./Models/leaves');
 
 
 SignupRoutes(app);
@@ -36,12 +32,15 @@ ChangepassRoutes(app);
 UserRoutes(app);
 timerRoutes(app);
 leaveRoutes(app);
-leaveapprovedRoutes(app);
+// leaveapprovedRoutes(app);
 
 
 
 
-
+app.use((error, req, res, next) => {
+    console.error(error);
+    res.status(400).json({message: error.message});
+})
 
 
 app.listen(port, () => {

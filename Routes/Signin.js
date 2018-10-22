@@ -1,11 +1,11 @@
 'use strict';
-const User = require('../Models/user');
+const {User} = require('../Models');
 const Passwordserv = require('../helper/password');
 
 
 module.exports = function (app) {
 
-    app.post('/getinfo', (req, res) => {
+    app.post('/getin', (req, res) => {
 
         const { Email, Password } = req.body;
         console.log(Email, Password);
@@ -41,8 +41,7 @@ module.exports = function (app) {
             .then((token) => {
                res.json({token})
             })
-            .catch((error) => {
-                res.json({ message: 'error' })
+            .catch((next) => {
             })
 
     })

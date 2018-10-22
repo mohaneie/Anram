@@ -28,8 +28,7 @@ module.exports = function (app) {
             .then(() => {
                 res.json({ message: 'Success' });
             })
-            .catch((error) => {
-                res.staus(400).json({ message: error.message });
+            .catch((next) => {
             })
 
     })

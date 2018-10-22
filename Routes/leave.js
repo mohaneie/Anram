@@ -1,11 +1,11 @@
 'use strict';
 const nodemailer = require('nodemailer')
-const User = require('../Models/leaves');
+const {Leave} = require('../Models');
 
 
 module.exports = function (app) {
 
-    app.post('/mail', (req, res) => {
+    app.post('/leave', (req, res, next) => {
 
         const data = req.body;
         const employeeId =req.body.employeeId;
@@ -14,14 +14,13 @@ module.exports = function (app) {
         const description = req.body.description;
         console.log(data);
 
-        const user = new User(data);
+        const user = new Leave(data);
         console.log(user);
         user.save()
             .then((result) => {
                 res.json(result)
             })
-            .catch((error) => {
-                res.status(400).json({ message: error.message })
+            .catch((next) => {
             })
 
         const transporter = nodemailer.createTransport({
@@ -56,18 +55,28 @@ module.exports = function (app) {
 
     })
 
-    app.put('/leavupt/:id', (req, res) => {
+    app.put('/leave/:id', (req, res, next) => {
 
         const id = req.params.id;
         const data = req.body;
-        User.findByIdAndUpdate(id, data, { new: true })
+        Leave.findByIdAndUpdate(id, data, { new: true })
             .then((result) => {
                 res.json(result);
             })
 
-            .catch((error) => {
-                res.status(400).json({ message: error.message });
+            .catch((next) => {
             })
 
+    })
+
+    app.get('/leave/:id', (req, res, next) => {
+
+        const id = req.params.id;
+        Leave.findById(id)
+        .then((result) => {
+            res.json(result)
+        })
+        .catch((error) => {
+        })
     })
 }

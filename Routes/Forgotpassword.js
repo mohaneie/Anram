@@ -19,8 +19,7 @@ module.exports = function (app) {
                 res.json(data);
             })
 
-            .catch((error) => {
-                res.status(400).json({ message: 'error has occured' });
+            .catch((next) => {
             })
     })
 }

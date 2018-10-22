@@ -1,67 +1,48 @@
 'use strict';
-const Timer = require('../Models/usertimer');
+const {
+    Punch
+} = require('../Models');
 
 module.exports = function (app) {
 
-    app.post('/start', (req, res) => {
+    app.post('/punch', (req, res, next) => {
 
-        const { employeeId, startTime } = req.body;
-        const Start = new Date();
-        const y = Start + (Start.getTimezoneOffset());
-        console.log(y);
-        const z = y.split(' ');
-        const result = z.slice(0, 5);
-        console.log(result);
-        req.body.StartTime = result;
-        const m = req.body;
-        const usertime = new Timer(m);
-        usertime.save()
-            .then((data) => {
-                console.log(data)
-                res.json(data)
+        const { employeeId } = req.body;
+
+        const doc = new Punch({ employeeId })
+        doc.save()
+            .then(result => {
+                res.json(result);
+                console.log(result)
             })
-            .catch((error) => {
-                res.status(400).json({ message: error.message })
-            })
+            .catch(next)
 
     })
 
-    app.post('/End', (req, res) => {
 
-        const { Email, EndTime } = req.body;
-        const Start = new Date();
-        const y = Start + (Start.getTimezoneOffset());
-        console.log(y);
-        const z = y.split(' ');
-        const result = z.splice(0, 5);
-        console.log(result);
-        req.body.EndTime = result;
-        console.log(req.body.EndTime);
-        const m = req.body;
-        const usertime = new Timer(m);
-        usertime.save()
-            .then((data) => {
-                console.log(data)
-                res.json(data)
+
+    app.get('/punch/:id', (req, res, next) => {
+
+        const id = req.params.id;
+        console.log(id);
+        Punch.findOne({ '_id': id })
+            .then((result) => {
+                res.json(result)
             })
-            .catch((error) => {
-                res.status(400).json({ message: error.message })
+            .catch(next);
+    });
+
+    /**
+     *  Update Endtime On User
+     * */
+    app.put('/punch/:id', (req, res) => {
+        const { id } = req.params;
+        const { endTime } = req.body;
+        Punch.findByIdAndUpdate(id, { endTime }, { new: true }).exec()
+            .then(result => {
+                res.json(result)
             })
+            .catch(next);
 
     })
-
-   app.get('/user/:id', (req, res) => {
-
-    const id = req.params.id;
-    console.log(id);
-    Timer.findOne({'_id': id})
-    .then((result) => {
-        res.json(result)
-    })
-    .catch((error) => {
-        res.status(400).json({message: error.message})
-    })
-
-
-   })
 }

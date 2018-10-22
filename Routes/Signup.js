@@ -27,10 +27,7 @@ module.exports = function (app) {
         .then((data) => {
             res.json(data)
         })
-        .catch((error) => {
-            console.log(error)
-            return res.status(400).json({message: 'error message'})
-        })
+        .catch(next)
     })
 
 

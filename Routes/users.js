@@ -1,11 +1,14 @@
 'use strict';
 
-const User = require('../Models/user');
+const {
+    User,
+} = require('../Models');
+
 const passwordserv = require('../helper/password');
 
 module.exports = function(app) {
 
-    app.post('/users', (req, res) => {
+    app.post('/users', (req, res, next) => {
 
         const data = req.body;
        console.log(data);
@@ -24,29 +27,27 @@ module.exports = function(app) {
        .then((result) => {
            res.json(result);
        })
-       .catch((error) => {
-           res.status(400).json({message: error.message});
+       .catch((next) => {
        })
     })
 
 
     //  to retrieve user information
 
-    app.get('/userinfo', (req, res) => {
+    app.get('/userinfo', (req, res, next) => {
      
         User.find({})
         .then((result) => {
             res.json(result);
         })
 
-        .catch((error) => {
-            res.status(400).json({message: error.message})
+        .catch((next) => {
         })
     })
 
     // to update user information
 
-    app.put('/update/:id', (req, res) => {
+    app.put('/update/:id', (req, res, next) => {
 
       const id = req.params.id;
       const data = req.body;
@@ -54,13 +55,12 @@ module.exports = function(app) {
       .then((result) => {
           console.log(result);
       })
-      .catch((error) => {
-          res.status(400).json({message: error.message})
+      .catch((next) => {
       })
     })
     // to delete user information 
 
-    app.delete('/del/:id', (req, res) => {
+    app.delete('/del/:id', (req, res, next) => {
 
         const id = req.params.id;
         console.log(id);
@@ -70,8 +70,7 @@ module.exports = function(app) {
             console.log(result)
         })
 
-        .catch((error) => {
-            res.status(400).json({message: error.message});
+        .catch((next) => {
         })
 
     })
