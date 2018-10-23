@@ -35,7 +35,7 @@ module.exports = function (app) {
 
         var mailOptions = {
             from: 'mohanbabu1013@gmail.com',
-            to: 'mohaneie88@gmail.com',
+            to: 'muralijaya2011@gmail.com',
             subject: 'Hello',
             text: 'Hello buddy',
             html: `<b>${"Employeecode:"+ " "+employeeId}<br>${"From:"+" "+from}<br>${"To:"+" " +to}<br>${"Description:"+ " " +description}<br><a href= '#'>click-the-Link</a>`

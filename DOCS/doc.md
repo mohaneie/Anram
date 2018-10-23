@@ -116,4 +116,118 @@
 }
 
 ```
+### API/TIMER/PUNCH:
+## POST METHOD:
+# SAMPLE INPUT:
+ ```json
+ {
+
+	
+"employeeId": "12345"
+
+}
+
+
+ ```
+
+ ```json
+ {
+     
+    "_id": "5bce840d677d1f1b5800f73d",
+    "employeeId": "12345",
+    "startTime": "2018-10-23T02:14:37.794Z",
+    "__v": 0
+}
+
+```
+
+### API/TIMER/PUNCH:
+## PUT METHOD:
+# SAMPLE INPUT:
+
+```json:
+
+{
+    'By using object id, End time will be updated in mongodb from Backend'
+}
+
+```
+#SAMPLE OUTPUT:
+```json
+{
+    "_id": "5bce840d677d1f1b5800f73d",
+    "employeeId": "12345",
+    "startTime": "2018-10-23T02:14:37.794Z",
+    "__v": 0,
+    "endTime": "2018-10-23T02:20:15.428Z"
+}
+
+
+```
+### API/TIMER/PUNCH:
+## GET METHOD:
+#SAMPLE INPUT:
+#NOTE: Here Im using params query used to find the user data from database as well as specific user data
+```json
+http://localhost:2021/punch/?employeeId=12345
+
+'Here I have Passed employee Id in Queries to find full data of employee: 12345'
+
+
+```
+#SAMPLE OUTPUT:
+
+```json
+ {
+        "_id": "5bcda517aaa5140eec685c10",
+        "employeeId": "12345",
+        "startTime": "2018-10-22T10:23:19.947Z",
+        "__v": 0
+    },
+    {
+        "_id": "5bcda51baaa5140eec685c11",
+        "employeeId": "12345",
+        "startTime": "2018-10-22T10:23:23.403Z",
+        "__v": 0
+    },
+    {
+        "_id": "5bcda51daaa5140eec685c12",
+        "employeeId": "12345",
+        "startTime": "2018-10-22T10:23:25.101Z",
+        "__v": 0
+    },
+    {
+        "_id": "5bcda51daaa5140eec685c13",
+        "employeeId": "12345",
+        "startTime": "2018-10-22T10:23:25.906Z",
+        "__v": 0
+    },
+    {
+        "_id": "5bce840d677d1f1b5800f73d",
+        "employeeId": "12345",
+        "startTime": "2018-10-23T02:14:37.794Z",
+        "__v": 0,
+        "endTime": "2018-10-23T02:20:15.428Z"
+    }
+]
+
+```
+#SAMPLE INPUT:
+#Note: Here Im find last punch date by using queries as like below:
+```json
+http://localhost:2021/punch/?employeeId=12345&lastPunch=true
+```
+
+#SAMPLE OUTPUT:
+
+```json
+ {
+        "_id": "5bcda517aaa5140eec685c10",
+        "employeeId": "12345",
+        "startTime": "2018-10-22T10:23:19.947Z",
+        "__v": 0
+    }
+
+```
+
 
