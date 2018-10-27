@@ -1,6 +1,6 @@
 'use strict';
 const nodemailer = require('nodemailer')
-const {Leave} = require('../Models');
+const { Leave } = require('../Models');
 
 
 module.exports = function (app) {
@@ -8,50 +8,60 @@ module.exports = function (app) {
     app.post('/leave', (req, res, next) => {
 
         const data = req.body;
-        const employeeId =req.body.employeeId;
+        const employeeId = req.body.employeeId;
         const from = req.body.from;
         const to = req.body.to;
         const description = req.body.description;
         console.log(data);
+        var x = (Object.keys(data).length == 0)
+        console.log(x);
+        if (x == false) {
+            const user = new Leave(data);
+            console.log(user);
+            user.save()
+                .then((result) => {
+                    res.json(result)
+                })
+                .catch((next) => {
+                })
 
-        const user = new Leave(data);
-        console.log(user);
-        user.save()
-            .then((result) => {
-                res.json(result)
+            const transporter = nodemailer.createTransport({
+                host: 'smtp.gmail.com',
+                port: 465,
+                secure: true,
+                auth: {
+                    user: 'mohanbabu1013@gmail.com',
+                    pass: 'welcome@1'
+                }
             })
-            .catch((next) => {
+
+            var mailOptions = {
+                from: 'mohanbabu1013@gmail.com',
+                to: 'mohaneie88@gmail.com',
+                subject: 'Hello',
+                text: 'Hello buddy',
+                html: `<b>${"Employeecode:" + " " + employeeId}<br>${"From:" + " " + from}<br>${"To:" + " " + to}<br>${"Description:" + " " + description}<br><a href= 'http://localhost:4200/'>click-the-Link-ToApprove</a>`
+
+            };
+
+            transporter.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.log(info)
+                    res.json(info);
+                }
+                transporter.close()
+
             })
+        }
+        else {
+            res.status(400).json('data is empty please fill the data before submit button')
+        }
 
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
-            auth: {
-                user: 'mohanbabu1013@gmail.com',
-                pass: 'welcome@1'
-            }
-        })
 
-        var mailOptions = {
-            from: 'mohanbabu1013@gmail.com',
-            to: 'mohaneie88@gmail.com',
-            subject: 'Hello',
-            text: 'Hello buddy',
-            html: `<b>${"Employeecode:"+ " "+employeeId}<br>${"From:"+" "+from}<br>${"To:"+" " +to}<br>${"Description:"+ " " +description}<br><a href= 'http://localhost:4200/'>click-the-Link-ToApprove</a>`
 
-        };
 
-        transporter.sendMail(mailOptions, (err, info) => {
-            if (err) {
-                console.log(err)
-            } else {
-                console.log(info)
-                res.json(info);
-            }
-            transporter.close()
-
-        })
 
     })
 
@@ -62,7 +72,7 @@ module.exports = function (app) {
         Leave.findByIdAndUpdate(id, data, { new: true })
             .then((result) => {
                 res.json(result);
-            })            
+            })
             .catch((next) => {
             })
 
@@ -72,12 +82,12 @@ module.exports = function (app) {
 
         const id = req.params.id;
         Leave.findById(id)
-        .then((result) => {
-            res.json(result)
-        })
-        .catch((error) => {
-        })
+            .then((result) => {
+                res.json(result)
+            })
+            .catch((error) => {
+            })
     })
 
-  
+
 }

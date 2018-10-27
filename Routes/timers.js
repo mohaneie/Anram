@@ -31,7 +31,7 @@ module.exports = function (app) {
         const year = dateObj.getFullYear();
         const month = dateObj.getMonth();
         const date = dateObj.getDate();
-        return {
+          return {
             year,
             month,
             date
@@ -45,7 +45,6 @@ module.exports = function (app) {
             .exec()
             .then(results => {
                 const [punch] = results;
-
                 if (!punch) {
                     const isOk = true;
                     return isOk;
