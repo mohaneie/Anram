@@ -1,5 +1,8 @@
 'use strict';
 
+const multer  = require('multer');
+var upload = multer({ dest: 'uploads/' })
+
 const {
     User,
 } = require('../Models');
@@ -34,7 +37,7 @@ module.exports = function(app) {
 
     //  to retrieve user information
 
-    app.get('/userinfo', (req, res, next) => {
+    app.get('/users', (req, res, next) => {
      
         User.find({})
         .then((result) => {
@@ -43,24 +46,37 @@ module.exports = function(app) {
 
         .catch((next) => {
         })
-    })
+    });
+
+
+    
+    app.get('/users/:id', (req, res, next) => {
+        const id = req.params.id;
+        User.findById(id)
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((next) => {
+        })
+    });
 
     // to update user information
 
-    app.put('/update/:id', (req, res, next) => {
+    app.put('/users/:id', upload.single('file'), (req, res, next) => {
 
       const id = req.params.id;
       const data = req.body;
+      console.log(req.file);
+
       User.findByIdAndUpdate(id, data, {new : true})
       .then((result) => {
-          console.log(result);
+          res.json(result)
       })
-      .catch((next) => {
-      })
+      .catch(next)
     })
     // to delete user information 
 
-    app.delete('/del/:id', (req, res, next) => {
+    app.delete('/users/:id', (req, res, next) => {
 
         const id = req.params.id;
         console.log(id);
