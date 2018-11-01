@@ -1,49 +1,68 @@
 'use strict';
-const {User} = require('../Models');
+const { User } = require('../Models');
 const Passwordserv = require('../helper/password');
-
 
 module.exports = function (app) {
 
-    app.post('/getin', (req, res) => {
+    app.post('/getin', async (req, res, next) => {
 
         const { Email, Password } = req.body;
         console.log(Email, Password);
         let document = {};
-        User.findOne({ Email })
-            .then((data) => {
+        try {
+            const data = await User.findOne({ Email })
+            if (!data) {
+                const error = new Error('email is not found');
+                return next(error);
+            }
 
-            
-                document = data;  // here I'm taking object id for jwt
+            const result = await Passwordserv.verify(Password, data.Password);
+            if (!result) {
+                return res.status(400).json({ message: 'password is not matching' })
+
+            }
+            const tokengen = await Passwordserv.token({ id: document._id });
+            res.json(tokengen);
 
 
-                if (data) {
+        }
+        catch (error) {
+            next(error);
+        }
+        // User.findOne({ Email })
+        //     .then((data) => {
 
-                    return Passwordserv.verify(Password, data.Password);
 
-                }
-                throw new Error('Employee code is not matching')
-            })
+        //         document = data;  // here I'm taking object id for jwt
 
-            .then((result) => {
 
-                console.log(result);
+        //         if (data) {
 
-                if (!result) {
-                    throw new Error('password doesnt match')
-                }
+        //             return Passwordserv.verify(Password, data.Password);
 
-             return Passwordserv.token({id:document._id})
-             
+        //         }
+        //         res.status(400).json({message: 'email id is not found'})
+        //         throw new Error('Employee code is not matching')
+        //     })
 
-            })
+        //     .then((result) => {
 
-            .then((token) => {
-               res.json({token})
-            })
-            .catch((next) => {
-            })
+        //         console.log(result);
 
+        //         if (!result) {
+        //             res.status(400).json({message: 'password ins not matching'})
+        //             throw new Error('password doesnt match')
+        //         }
+
+        //      return Passwordserv.token({id:document._id})
+
+
+        //     })
+
+        //     .then((token) => {
+        //        res.json({token})
+        //     })
+        //     .catch((next) => {
+        //     })
     })
 }
-

@@ -12,7 +12,6 @@ module.exports = function (app) {
                 if (data) {
                     const x = Math.floor((Math.random() * 10000))
                     res.json(x);
-                    console.log(x);
                     return UserSchema.findOneAndUpdate({ Email }, { Otp: x }, { new: true });
 
                 }

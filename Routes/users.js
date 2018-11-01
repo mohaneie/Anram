@@ -11,53 +11,54 @@ const passwordserv = require('../helper/password');
 
 module.exports = function(app) {
 
-    app.post('/users', (req, res, next) => {
+    app.post('/users', async (req, res, next) => {
 
         const data = req.body;
        console.log(data);
        const {Password} = data;
-       console.log(Password);
 
-       passwordserv.hash(Password)
-
-       .then((hash) => {
-           console.log(hash);
-           const data = req.body || {};
-           data.Password = hash;
+       try {
+            const hashPass = await passwordserv.hash(Password)
+            const data = req.body || {};
+           data.Password = hashPass;
            const user = new User(data);
-           return user.save()
-       })
-       .then((result) => {
+           const result = await user.save();
            res.json(result);
-       })
-       .catch((next) => {
-       })
+       } catch (error) {
+           next(error)
+       }
+
     })
 
 
     //  to retrieve user information
 
-    app.get('/users', (req, res, next) => {
-     
-        User.find({})
-        .then((result) => {
-            res.json(result);
-        })
+    app.get('/users', async (req, res, next) => {
 
-        .catch((next) => {
-        })
+        try {
+            const result = await User.find({});
+            res.json(result);
+        } catch (error) {
+            next(error)
+        }
+     
     });
 
 
     
-    app.get('/users/:id', (req, res, next) => {
+    app.get('/users/:id', async (req, res, next) => {
         const id = req.params.id;
-        User.findById(id)
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((next) => {
-        })
+
+        try {
+        
+        const result = await User.findById(id)
+        res.json(result);
+
+        }
+        
+        catch(error) {
+         next(error)
+        }
     });
 
     // to update user information
@@ -76,18 +77,16 @@ module.exports = function(app) {
     })
     // to delete user information 
 
-    app.delete('/users/:id', (req, res, next) => {
+    app.delete('/users/:id', async (req, res, next) => {
 
         const id = req.params.id;
-        console.log(id);
-        User.findByIdAndDelete({'_id': id})
-        .then((result) => {
-            res.json(result);
-            console.log(result)
-        })
-
-        .catch((next) => {
-        })
+        try {
+        const result = await User.findByIdAndDelete({'_id': id});
+        res.json(result);
+        }
+        catch(error) {
+        next(error)
+        }
 
     })
 }

@@ -4,29 +4,26 @@ const passwordserv = require('../helper/password');
 
 
 module.exports = function (app) {
-    app.post('/update', (req, res) => {
+    app.post('/update', async (req, res, next) => {
         const { Email, Password } = req.body;
-        console.log(Email, Password);
-        User.findOne({ Email })
-            .then((data) => {
-                if (!data) {
-                    res.status(419).json({ message: 'Email is not found' })
-                }
-                return passwordserv.hash(Password)
+        try {
+            const data = await User.findOne({ Email })
+            if (!data) {
+                return next('email is not found')
+            }
 
-            })
-            .then((hash) => {
-                console.log(hash);
-                req.body.Password = hash;
-                console.log(req.body.Password)
-                const some = new User(req.body);
-                return some.save()
-            })
-            .then((result) => {
-                res.json(result);
-            })
-            .catch((next) => {
-            })
+            const hashpass = await passwordserv.hash(Password)
+            req.body.Password = hashpass;
+            const some = new User(req.body);
+            const result = await some.save();
+            res.json(result);
+
+        }
+
+        catch (error) {
+            next(error)
+        }
+
     })
 }
 

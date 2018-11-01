@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
  from: {type: Date, required: true},
  to: {type: Date, required: true},
  description: {type: String, required: true},
- isApproved: {type: String, default: 'pending'},
+ status: {type: String, default: 'pending'},
  approvedBy: String,
 }, {timestamps: true});
 

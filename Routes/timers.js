@@ -45,6 +45,7 @@ module.exports = function (app) {
             .exec()
             .then(results => {
                 const [punch] = results;
+                console.log(punch)
                 if (!punch) {
                     const isOk = true;
                     return isOk;
@@ -60,7 +61,7 @@ module.exports = function (app) {
                 });
 
                 /**
-                 * If he already punched today return false
+                 * If he already punched today return false  
                  * */
 
                 const isOk = !isToday;
@@ -87,7 +88,6 @@ module.exports = function (app) {
             })
             .then(result => {
                 res.json(result);
-                const time = result.startTime;
             })
             .catch(next)
 
@@ -108,14 +108,17 @@ module.exports = function (app) {
     /**
      *  Update Endtime On User
      * */
-    app.put('/punch/:id', (req, res, next) => {
+    app.put('/punch/:id', async (req, res, next) => {
         const { id } = req.params;
         const endTime = new Date();
-        Punch.findByIdAndUpdate(id, { endTime }, { new: true }).exec()
-            .then(result => {
-                res.json(result)
-            })
-            .catch(next);
+        try {
+            const result = await  Punch.findByIdAndUpdate(id, { endTime }, { new: true }).exec()
+            res.json(result)
+        }
+      
+    catch(error) {
+     next(error)
+    };
 
     })
 }

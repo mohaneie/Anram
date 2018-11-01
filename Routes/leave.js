@@ -5,7 +5,7 @@ const { Leave } = require('../Models');
 
 module.exports = function (app) {
 
-    app.post('/leave', (req, res, next) => {
+    app.post('/leave', async (req, res, next) => {
 
         const data = req.body;
         const employeeId = req.body.employeeId;
@@ -18,12 +18,14 @@ module.exports = function (app) {
         if (x == false) {
             const user = new Leave(data);
             console.log(user);
-            user.save()
-                .then((result) => {
-                    res.json(result)
-                })
-                .catch((next) => {
-                })
+            try {
+                const result = await user.save()
+                res.json(result)
+
+            }
+             catch(error) {
+               next(error)
+             }
 
             const transporter = nodemailer.createTransport({
                 host: 'smtp.gmail.com',
@@ -65,28 +67,34 @@ module.exports = function (app) {
 
     })
 
-    app.put('/leave/:id', (req, res, next) => {
+    app.put('/leave/:id', async (req, res, next) => {
 
         const id = req.params.id;
         const data = req.body;
-        Leave.findByIdAndUpdate(id, data, { new: true })
-            .then((result) => {
-                res.json(result);
-            })
-            .catch((next) => {
-            })
 
+        try {
+        
+        const result = await Leave.findByIdAndUpdate(id, data, { new: true })
+        res.json(result);
+
+        }
+        catch(error) {
+            next(error)
+        }
     })
 
-    app.get('/leave/:id', (req, res, next) => {
+    app.get('/leave/:id', async (req, res, next) => {
 
         const id = req.params.id;
-        Leave.findById(id)
-            .then((result) => {
-                res.json(result)
-            })
-            .catch((error) => {
-            })
+        try {
+        const result = await Leave.findById(id) 
+        res.json(result)
+        }
+
+      catch(error) {
+          next(error);
+      }
+    
     })
 
 
