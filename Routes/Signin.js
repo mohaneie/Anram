@@ -29,40 +29,6 @@ module.exports = function (app) {
         catch (error) {
             next(error);
         }
-        // User.findOne({ Email })
-        //     .then((data) => {
-
-
-        //         document = data;  // here I'm taking object id for jwt
-
-
-        //         if (data) {
-
-        //             return Passwordserv.verify(Password, data.Password);
-
-        //         }
-        //         res.status(400).json({message: 'email id is not found'})
-        //         throw new Error('Employee code is not matching')
-        //     })
-
-        //     .then((result) => {
-
-        //         console.log(result);
-
-        //         if (!result) {
-        //             res.status(400).json({message: 'password ins not matching'})
-        //             throw new Error('password doesnt match')
-        //         }
-
-        //      return Passwordserv.token({id:document._id})
-
-
-        //     })
-
-        //     .then((token) => {
-        //        res.json({token})
-        //     })
-        //     .catch((next) => {
-        //     })
+       
     })
 }
