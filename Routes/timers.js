@@ -31,7 +31,7 @@ module.exports = function (app) {
         const year = dateObj.getFullYear();
         const month = dateObj.getMonth();
         const date = dateObj.getDate();
-          return {
+        return {
             year,
             month,
             date
@@ -39,12 +39,13 @@ module.exports = function (app) {
     }
 
 
-    function validateNewPunch(employeeId, currentDateObj) {
-        return Punch.find({ employeeId })
+    async function validateNewPunch(employeeId, currentDateObj) {
+        try {
+          
+            const result = await Punch.find({ employeeId })
             .sort({ startTime: -1 })
             .exec()
-            .then(results => {
-                const [punch] = results;
+            const [punch] = result;
                 if (!punch) {
                     const isOk = true;
                     return isOk;
@@ -59,37 +60,44 @@ module.exports = function (app) {
                     return currentValue === lastValue;
                 });
 
+
                 /**
                  * If he already punched today return false
                  * */
 
                 const isOk = !isToday;
                 return isOk;
-            });
+
+        }
+       catch(error) {
+        //    next(error)
+        console.log(error);
+       }
 
     }
 
 
-    app.post('/punch', (req, res, next) => {
+    app.post('/punch', async (req, res, next) => {
 
         const { employeeId } = req.body;
         const now = new Date();
+        try {
 
-        validateNewPunch(employeeId, now)
-            .then(isOk => {
-                if (!isOk) {
-                    const error = new Error('You Have Already Punched');
-                    error.status = 400;
-                    return Promise.reject(error);
-                }
-                const doc = new Punch({ employeeId })
-                return doc.save();
-            })
-            .then(result => {
-                res.json(result);
-                const time = result.startTime;
-            })
-            .catch(next)
+            const isOk = await validateNewPunch(employeeId, now)
+            if (!isOk) {
+                const error = new Error('You Have Already Punched');
+                error.status = 400;
+                return Promise.reject(error);
+            }
+            const doc = new Punch({ employeeId })
+            const result = doc.save();
+            res.json(result);
+
+        }
+
+      catch(error) {
+          next(error)
+      }
 
     })
 
