@@ -41,38 +41,38 @@ module.exports = function (app) {
 
     async function validateNewPunch(employeeId, currentDateObj) {
         try {
-          
+
             const result = await Punch.find({ employeeId })
-            .sort({ startTime: -1 })
-            .exec()
+                .sort({ startTime: -1 })
+                .exec()
             const [punch] = result;
-                if (!punch) {
-                    const isOk = true;
-                    return isOk;
-                }
-
-                const lastPunchTime = new Date(punch.startTime);
-                const lastPunch = getDateAsYearMonthDate(lastPunchTime);
-                const currentPunch = getDateAsYearMonthDate(currentDateObj);
-                const isToday = Object.keys(currentPunch).every(key => {
-                    const currentValue = currentPunch[key];
-                    const lastValue = lastPunch[key];
-                    return currentValue === lastValue;
-                });
-
-
-                /**
-                 * If he already punched today return false  
-                 * */
-
-                const isOk = !isToday;
+            if (!punch) {
+                const isOk = true;
                 return isOk;
+            }
+
+            const lastPunchTime = new Date(punch.startTime);
+            const lastPunch = getDateAsYearMonthDate(lastPunchTime);
+            const currentPunch = getDateAsYearMonthDate(currentDateObj);
+            const isToday = Object.keys(currentPunch).every(key => {
+                const currentValue = currentPunch[key];
+                const lastValue = lastPunch[key];
+                return currentValue === lastValue;
+            });
+
+
+            /**
+             * If he already punched today return false  
+             * */
+
+            const isOk = !isToday;
+            return isOk;
 
         }
-       catch(error) {
-        next(error);
-        // console.log(error);
-       }
+        catch (error) {
+            next(error);
+            // console.log(error);
+        }
 
     }
 
@@ -86,8 +86,7 @@ module.exports = function (app) {
             const isOk = await validateNewPunch(employeeId, now)
             if (!isOk) {
                 const error = new Error('You Have Already Punched');
-                error.status = 400;
-                return Promise.reject(error);
+                return next(error);
             }
             const doc = new Punch({ employeeId })
             const result = await doc.save();
@@ -95,9 +94,9 @@ module.exports = function (app) {
 
         }
 
-      catch(error) {
-          next(error)
-      }
+        catch (error) {
+            next(error)
+        }
 
     })
 
@@ -116,17 +115,31 @@ module.exports = function (app) {
     /**
      *  Update Endtime On User
      * */
+
+    /**
+     * validate end punch
+     */
+     
     app.put('/punch/:id', async (req, res, next) => {
         const { id } = req.params;
         const endTime = new Date();
+        console.log(endTime);
         try {
-            const result = await  Punch.findByIdAndUpdate(id, { endTime }, { new: true }).exec()
-            res.json(result)
+            const data = await Punch.findById(id);
+            const end = data.endTime;
+            if(end) {
+                const error = new Error('you have already punched End Time');
+                return next(error);
+            }
+
+            data.endTime = endTime;
+            const result = await data.save();
+            res.json(result);
+
         }
-      
-    catch(error) {
-     next(error)
-    };
+        catch (error) {
+            next(error)
+        };
 
     })
 }
