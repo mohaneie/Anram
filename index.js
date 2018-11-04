@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const connects = require('./dbconnection');
-const SignupRoutes = require('./Routes/Signup');
+// const SignupRoutes = require('./Routes/Signup');
 const SigninRoutes = require('./Routes/Signin');
 const ForgotRoutes = require('./Routes/Forgotpassword');
 const ResetRoutes = require('./Routes/Resetpassword');
@@ -24,7 +24,7 @@ const timerRoutes = require('./Routes/timers');
 const leaveRoutes = require('./Routes/leave');
 
 
-SignupRoutes(app);
+// SignupRoutes(app);
 SigninRoutes(app);
 ForgotRoutes(app);
 ResetRoutes(app);

@@ -47,4 +47,5 @@ console.log(res)
     })
 }
 
+
 module.exports = { hash, verify, token};
