@@ -2,18 +2,17 @@
 const express = require('express');
 const app = express();
 const port = 2021;
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 
 
 app.use(morgan('tiny'));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-const connects = require('./dbconnection');
+require('./dbconnection');
 // const SignupRoutes = require('./Routes/Signup');
 const SigninRoutes = require('./Routes/Signin');
 const ForgotRoutes = require('./Routes/Forgotpassword');
@@ -39,7 +38,7 @@ leaveRoutes(app);
 
 app.use((error, req, res, next) => {
     console.error(error);
-    res.status(400).json({message: error.message});
+    res.status(400).json({ message: error.message });
 })
 
 

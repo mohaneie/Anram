@@ -79,7 +79,6 @@ module.exports = function (app) {
 
         const id = req.params.id;
         const data = req.body;
-        console.log(req.file);
 
         User.findByIdAndUpdate(id, data, { new: true })
             .then((result) => {
@@ -93,7 +92,7 @@ module.exports = function (app) {
 
         const id = req.params.id;
         try {
-            const result = await User.findByIdAndDelete({ '_id': id });
+            const result = await User.findByIdAndDelete(id);
             res.json(result);
         }
         catch (error) {

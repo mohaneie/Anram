@@ -7,7 +7,7 @@ module.exports = function (app) {
     app.post('/getin', async (req, res, next) => {
 
         const { Email, Password } = req.body;
-        console.log(Email, Password);
+
         let document = {};
         try {
             const data = await User.findOne({ Email })

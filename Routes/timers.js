@@ -3,6 +3,18 @@ const {
     Punch
 } = require('../Models');
 
+
+function getDateAsYearMonthDate(dateObj) {
+    const year = dateObj.getFullYear();
+    const month = dateObj.getMonth();
+    const date = dateObj.getDate();
+    return {
+        year,
+        month,
+        date
+    };
+}
+
 module.exports = function (app) {
 
     app.get('/punch', (req, res, next) => {
@@ -27,16 +39,6 @@ module.exports = function (app) {
             .catch(next);
     });
 
-    function getDateAsYearMonthDate(dateObj) {
-        const year = dateObj.getFullYear();
-        const month = dateObj.getMonth();
-        const date = dateObj.getDate();
-        return {
-            year,
-            month,
-            date
-        };
-    }
 
 
     async function validateNewPunch(employeeId, currentDateObj) {
@@ -101,17 +103,6 @@ module.exports = function (app) {
     })
 
 
-
-    // app.get('/punch/:id', (req, res, next) => {
-
-    //     const id = req.params.id;
-    //     Punch.findById(id)
-    //         .then((result) => {
-    //             res.json(result)
-    //         })
-    //         .catch(next);
-    // });
-
     /**
      *  Update Endtime On User
      * */
@@ -119,7 +110,7 @@ module.exports = function (app) {
     /**
      * validate end punch
      */
-     
+
     app.put('/punch/:id', async (req, res, next) => {
         const { id } = req.params;
         const endTime = new Date();
@@ -127,7 +118,7 @@ module.exports = function (app) {
         try {
             const data = await Punch.findById(id);
             const end = data.endTime;
-            if(end) {
+            if (end) {
                 const error = new Error('you have already punched End Time');
                 return next(error);
             }

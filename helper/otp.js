@@ -2,7 +2,7 @@
 const nodemailer = require('nodemailer');
 
 
-function myfun(r) {
+function myfun(OTP) {
     var transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -18,7 +18,7 @@ function myfun(r) {
         to: 'mohaneie88@gmail.com',
         subject: 'Hello',
         text: 'Hello world',
-        html: `${'OTP:' + r}`,
+        html: `${'OTP:' + OTP}`,
     };
     
     transporter.sendMail(mailOptions, function(error, info) {

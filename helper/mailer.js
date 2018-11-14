@@ -16,9 +16,8 @@ function send(to, html, subject) {
     return new Promise((resolve, reject) => {
         const from = 'mohanbabu1013@gmail.com';
         
-
         if (!to) {
-            const error = new Error('Sould Provide Atleast One To Address To Send Email');
+            const error = new Error('Sould Provide Atleast One To Address to Send Email');
             return reject(error)
         }
 

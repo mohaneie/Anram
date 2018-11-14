@@ -9,7 +9,7 @@ module.exports = function (app) {
     app.post('/forgot', async (req, res, next) => {
         const { Email } = req.body;
         try {
-            const data = await User.findOne({Email});
+            const data = await User.findOne({ Email });
             if (!data) {
                 const error = new Error('Mail Doesnt exist')
                 return next(error);
@@ -17,14 +17,14 @@ module.exports = function (app) {
             const x = (Math.random() * Date.now() * 1000).toString().slice(0, 8);
             const result = await User.findOneAndUpdate({ Email }, { Otp: x }, { new: true });
             res.json(result);
-                const r = result.Otp;
-                console.log(r);
-                myfun(r);
+            const OTP = result.Otp;
+            console.log(OTP);
+            myfun(OTP);
         }
 
-          catch(error) {
-              next(error);
-          }
+        catch (error) {
+            next(error);
+        }
     })
 
     /**resetPassword */
