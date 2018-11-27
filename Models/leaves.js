@@ -4,6 +4,7 @@ const UserSchema = new mongoose.Schema({
  employeeId: {type: String, required: true},
  from: {type: Date, required: true},
  to: {type: Date, required: true},
+ leaveType: {type: String, required: true},
  description: {type: String, required: true},
  status: {type: String, default: 'pending'},
  approvedBy: String,

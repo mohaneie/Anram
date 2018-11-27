@@ -5,6 +5,17 @@ const { Leave } = require('../Models');
 
 module.exports = function (app) {
 
+  app.get('/leave', async(req, res, next) => {
+  
+  try {
+    const data = await Leave.find()
+    res.json(data)
+  }
+  catch(error) {
+    next(error)
+  }
+  
+  })
     app.post('/leave', async (req, res, next) => {
 
         const data = req.body;
