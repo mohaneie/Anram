@@ -31,9 +31,36 @@ module.exports = function (app) {
             const hashPass = await passwordserv.hash(Password)
             const data = req.body || {};
             data.Password = hashPass;
+            const data1 = await User.count({});
+            console.log(data1);
+            const x = data1;
+            console.log(x);
+         // employee code generating here..
+            function myfun(m) {
+
+             if(m==0) {
+                const code = 12345;
+                data.EmployeeCode = code;
+             }
+             else if(m< 100) {
+                const code = 12345;
+                const codes = code+m;
+                data.EmployeeCode = codes;
+             }
+
+             else {
+                console.log('error');
+             }
+            }
+            myfun(x)
+
+
             const user = new User(data);
-            const result = await user.save();  
-            mailer.sendMailForNewEmployee(to, Password);
+            const result = await user.save(); 
+
+            // console.log(result);
+            const EmployeeCode = result.EmployeeCode;
+            mailer.sendMailForNewEmployee(to, Password, EmployeeCode);
             res.json(result);
             // console.log(Password, subject);
         } catch (error) {

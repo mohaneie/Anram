@@ -43,7 +43,7 @@ function send(to, html, subject) {
     })
 }
 
-function mailContent(to, Password) {
+function mailContent(to, Password, EmployeeCode) {
      return `<div style="border: 2px solid red; border-radius: 25px; padding: 10px; width: 30%; text-align: center;margin: auto;">
             <div><img src="https://media.licdn.com/dms/image/C510BAQEh3iA0mRxaxw/company-logo_200_200/0?e=2159024400&v=beta&t=wbwLYuPPyhsoEqSMLYUH689AcY5znqoItDkUPfCUVm8" width="40%"></div>
     
@@ -53,12 +53,13 @@ function mailContent(to, Password) {
             <h3 style>Here You Can Find Your Login Details</h3>
             <p><strong>UserName:</strong>${to}</p>
             <p><strong>Password:</strong>${Password}</p>
+            <p><strong>EmployeeCode:</strong>${EmployeeCode}</p>
             <p style><strong>Note:</strong>Please Contact To HR Team Any Further Enquiry</p>
         </div>`;
 }
 
-function sendMailForNewEmployee(to, Password) {
-   const body = mailContent(to, Password);
+function sendMailForNewEmployee(to, Password, EmployeeCode) {
+   const body = mailContent(to, Password, EmployeeCode);
    send(to, body, 'Welcome To Anram Solutions PVT LTD');
 }
 // mailer('mohaneie88@gmail.com', 'welcome@1');
