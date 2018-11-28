@@ -19,7 +19,7 @@ module.exports = function (app) {
             res.json(result);
             const OTP = result.Otp;
             console.log(OTP);
-            myfun(OTP);
+            myfun(OTP, Email);
         }
 
         catch (error) {
@@ -32,6 +32,7 @@ module.exports = function (app) {
     app.post('/reset', async (req, res, next) => {
 
         const { Otp, Password } = req.body;
+        console.log(Otp, Password);
         try {
 
             const data = await User.findOne({ Otp });
@@ -42,6 +43,7 @@ module.exports = function (app) {
             const hash = await passwordserv.hash(Password);
             req.body.Password = hash;
             const info = req.body;
+            console.log(info);
             const result = await User.findOneAndUpdate({ Otp }, info, { new: true });
             res.json(result);
 
