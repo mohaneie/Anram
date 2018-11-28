@@ -40,12 +40,12 @@ module.exports = function (app) {
 
              if(m==0) {
                 const code = 12345;
-                data.EmployeeCode = code;
+                data.employeeId = code;
              }
              else if(m< 100) {
                 const code = 12345;
                 const codes = code+m;
-                data.EmployeeCode = codes;
+                data.employeeId = codes;
              }
 
              else {
@@ -59,8 +59,8 @@ module.exports = function (app) {
             const result = await user.save(); 
 
             // console.log(result);
-            const EmployeeCode = result.EmployeeCode;
-            mailer.sendMailForNewEmployee(to, Password, EmployeeCode);
+            const employeeId = result.employeeId;
+            mailer.sendMailForNewEmployee(to, Password, employeeId);
             res.json(result);
             // console.log(Password, subject);
         } catch (error) {
