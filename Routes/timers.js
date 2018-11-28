@@ -111,21 +111,23 @@ module.exports = function (app) {
      * validate end punch
      */
 
-    app.put('/punch/:id', async (req, res, next) => {
-        const { id } = req.params;
-        const endTime = new Date();
-        console.log(endTime);
+    app.put('/punch/:employeeId', async (req, res, next) => {
+        const { employeeId } = req.params;
+        console.log(employeeId);
+        let date = {endTime: new Date()};
+        
+        
         try {
-            const data = await Punch.findById(id);
-            const end = data.endTime;
-            if (end) {
-                const error = new Error('you have already punched End Time');
-                return next(error);
-            }
+            const data = await Punch.findOneAndUpdate({employeeId},date, {new:true});
+            
+            // if (end) {
+            //     const error = new Error('you have already punched End Time');
+            //     return next(error);
+            // }
 
-            data.endTime = endTime;
-            const result = await data.save();
-            res.json(result);
+            // data.endTime = endTime;
+            // const result = await data.save();
+            res.json(data);
 
         }
         catch (error) {
