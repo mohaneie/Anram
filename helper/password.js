@@ -47,5 +47,28 @@ console.log(res)
     })
 }
 
+// jwt verify..
+
+// function tokenverify(token) {
+//     // console.log(token);
+//     if(token) {
+
+//         console.log(token);
+
+//         return new Promise((resolve, reject) => {
+
+//     jwt.verify(token, '54321', ( error, res) => {
+
+//         if(error) {
+//          reject('decodedtoken is not available');
+//       }
+//         resolve(res);
+//     })
+//     })
+       
+//     }
+
+    
+// }
 
 module.exports = { hash, verify, token};

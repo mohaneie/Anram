@@ -5,6 +5,8 @@ const port = 2021;
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+
 
 
 app.use(morgan('tiny'));
@@ -21,6 +23,14 @@ const UserRoutes = require('./Routes/users');
 const timerRoutes = require('./Routes/timers');
 const leaveRoutes = require('./Routes/leave');
 
+app.use((req, res, next) => {
+
+	console.log(req.headers);
+	const data =  req.headers.authorization;
+	console.log('token:::::',data);
+
+	next();
+})
 
 // SignupRoutes(app);
 SigninRoutes(app);
