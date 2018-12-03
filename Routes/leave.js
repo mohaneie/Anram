@@ -82,7 +82,8 @@ module.exports = function (app) {
 
         const id = req.params.id;
         const data = req.body;
-
+        console.log(data);
+        data.status = "Approved"
         try {
         
         const result = await Leave.findByIdAndUpdate(id, data, { new: true })
