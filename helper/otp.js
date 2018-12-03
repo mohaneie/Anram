@@ -9,7 +9,7 @@ function myfun(OTP, Email) {
         secure: true, //true --> will use ssl
         auth: {
             user: 'mohanbabu1013@gmail.com',
-            pass: 'welcome@1',
+            pass: 'welcome@2',
         }
     });
 

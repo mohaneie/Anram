@@ -25,7 +25,6 @@ module.exports = function (app) {
             const tokengen = await Passwordserv.token({ id: document._id });
             res.json({token: tokengen});
 
-
         }
         catch (error) {
             next(error);
