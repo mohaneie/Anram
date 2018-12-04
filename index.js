@@ -29,24 +29,24 @@ SigninRoutes(app);
 
 
 
-// app.use((req, res, next) => {
+app.use((req, res, next) => {
 
-// 	console.log(req.headers);
-// 	const token =  req.headers.authorization;
-// 	console.log(token);
-// 	jwt.verify(token, '54321', (err, decodedtoken) => {
-// 		if(decodedtoken) {
-// 			console.log(decodedtoken);
-// 			next()
-// 		}
-// 		else {
-// 			const error = new Error('token is not matching');
-// 			console.log(error);
-// 			return res.status(400).json('token is not received from fronend');
-// 		}
+	console.log(req.headers);
+	const token =  req.headers.authorization;
+	console.log(token);
+	jwt.verify(token, '54321', (err, decodedtoken) => {
+		if(decodedtoken) {
+			console.log(decodedtoken);
+			next()
+		}
+		else {
+			const error = new Error('token is not matching');
+			console.log(error);
+			return res.status(400).json('token is not received from fronend');
+		}
 
-// 	})
-// })
+	})
+})
 
 // SignupRoutes(app);
 ForgotRoutes(app);

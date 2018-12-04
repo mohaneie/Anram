@@ -53,7 +53,7 @@ module.exports = function (app) {
                 to: 'mohaneie88@gmail.com',
                 subject: 'Hello',
                 text: 'Hello buddy',
-                html: `<b>${"Employeecode:" + " " + employeeId}<br>${"From:" + " " + from}<br>${"To:" + " " + to}<br>${"Description:" + " " + description}<br><a href= 'http://localhost:4200/'>click-the-Link-ToApprove</a>`
+                html: `<b>${"Employeecode:" + " " + employeeId}<br>${"From:" + " " + from}<br>${"To:" + " " + to}<br>${"Description:" + " " + description}<br><a href= 'http://localhost:4200/acc/leaves/'>click-the-Link-ToApprove</a>`
 
             };
 
@@ -78,12 +78,12 @@ module.exports = function (app) {
 
     })
 
-    app.put('/leave/:id', async (req, res, next) => {
+    app.put('/leaves/:id', async (req, res, next) => {
 
         const id = req.params.id;
+        console.log(id);
         const data = req.body;
         console.log(data);
-        data.status = "Approved"
         try {
         
         const result = await Leave.findByIdAndUpdate(id, data, { new: true })
