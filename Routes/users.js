@@ -100,6 +100,21 @@ module.exports = function (app) {
         }
     });
 
+    // users list 
+
+   //  app.get('/userslist', async (req, res, next) => {
+
+   // const data = await User.find({})
+   // try {
+   //      res.json(data)
+
+   // }
+   //   catch(error) {
+   //      next(error)
+   //   }
+     
+   //  })
+
     // to update user information
 
     app.put('/users/:id', upload.single('file'), (req, res, next) => {
