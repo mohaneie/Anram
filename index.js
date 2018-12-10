@@ -26,6 +26,8 @@ const leaveRoutes = require('./Routes/leave');
 
 UserRoutes(app);
 SigninRoutes(app);
+ForgotRoutes(app);
+ChangepassRoutes(app);
 
 
 
@@ -49,8 +51,7 @@ app.use((req, res, next) => {
 })
 
 // SignupRoutes(app);
-ForgotRoutes(app);
-ChangepassRoutes(app);
+
 timerRoutes(app);
 leaveRoutes(app);
 // leaveapprovedRoutes(app);
