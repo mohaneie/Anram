@@ -15,14 +15,17 @@ module.exports = function (app) {
                 const error = new Error('email is not found');
                 return next(error);
             }
-            document = data;
-            console.log(document);
+            console.log(data, 'data')
+            console.log(data.userRole, 'emplo')
+            const {_id: id, employeeId, userRole } = data;
+            // console.log(id, employeeId, userRole );
             const result = await Passwordserv.verify(Password, data.Password);
             if (!result) {
                 return res.status(400).json({ message: 'password is not matching' })
 
             }
-            const tokengen = await Passwordserv.token({ id: document._id });
+            const tokengen = await Passwordserv.token({id, employeeId, userRole  });
+            // console.log(tokengen)
             res.json({token: tokengen});
 
         }

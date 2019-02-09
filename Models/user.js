@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
     EmployeeContactNo: {type: String, required: true},
     EmergencyContactNo: {type: String, required: true},
     Gender: {type: String, required: true},
-    employeeId : {type: Number},
+    employeeId : Number,
+    userRole: String,
 });
 
 module.exports = mongoose.model('User', UserSchema);

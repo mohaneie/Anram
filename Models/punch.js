@@ -1,7 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
 const Timer = mongoose.Schema({
-    employeeId: {type: String, required: true}, 
+    employeeId: {type: String}, 
     startTime: {type: Date, default: Date.now},
     endTime: Date,
 }, {timestamp: true})
